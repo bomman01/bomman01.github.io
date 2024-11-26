@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Names by Attribute</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .search-container {
+            margin: 20px;
+            position: relative;
+        }
+        #search-field {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .autocomplete-suggestions {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            background: #fff;
+            z-index: 1000;
+        }
+        .autocomplete-suggestions li {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .autocomplete-suggestions li:hover {
+            background: #f0f0f0;
+        }
+        #results {
+            margin-top: 20px;
+            list-style-type: none;
+            padding: 0;
+        }
+        #results li {
+            padding: 5px;
+            background: #f0f0f0;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <!-- Searchable input field -->
+        <input 
+            type="text" 
+            id="search-field" 
+            placeholder="Type attribute (e.g., 'Black Hair')" 
+            oninput="showSuggestions()"
+            autocomplete="off"
+        >
+        <!-- Suggestions container -->
+        <ul id="suggestions" class="autocomplete-suggestions"></ul>
+
+        <!-- Results container -->
+        <ul id="results"></ul>
+    </div>
+    <script>
+        let data = []; // Placeholder for loaded data
+        const fields = ["Over 180cm", "Black Hair", "Blue Eyes"]; // Predefined field names
+
+        // Fetch data from the JSON file
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                data = await response.json();
+                console.log('Data loaded:', data);
+            } catch (error) {
+                console.error('Failed to load data:', error);
+            }
+        }
+
+        // Function to show autocomplete suggestions
+        function showSuggestions() {
+            const input = document.getElementById('search-field').value.toLowerCase();
+            const suggestionsContainer = document.getElementById('suggestions');
+            
+            // Clear previous suggestions
+            suggestionsContainer.innerHTML = '';
+
+            // Show suggestions matching the input
+            if (input) {
+                const matches = fields.filter(field => field.toLowerCase().includes(input));
+                matches.forEach(match => {
+                    const suggestion = document.createElement('li');
+                    suggestion.textContent = match;
+                    suggestion.onclick = () => {
+                        document.getElementById('search-field').value = match;
+                        suggestionsContainer.innerHTML = '';
+                        filterResults(match);
+                    };
+                    suggestionsContainer.appendChild(suggestion);
+                });
+            }
+        }
+
+        // Function to filter and display results
+        function filterResults(field) {
+            const resultsContainer = document.getElementById('results');
+            
+            // Clear previous results
+            resultsContainer.innerHTML = '';
+
+            // Filter data to show names with "Yes" for the selected field
+            const filteredData = data.filter(item => item[field] === "Yes");
+
+            // Display results
+            if (filteredData.length > 0) {
+                filteredData.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = item.Name;
+                    resultsContainer.appendChild(listItem);
+                });
+            } else {
+                // Display "No results found" if no matches
+                resultsContainer.innerHTML = '<li>No results found</li>';
+            }
+        }
+
+        // Load data on page load
+        window.onload = loadData;
+    </script>
+</body>
+</html>
