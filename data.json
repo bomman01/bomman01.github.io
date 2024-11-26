@@ -1,0 +1,44 @@
+[
+    {
+        "Name": "Alice Johnson",
+        "Over 180cm": "No",
+        "Black Hair": "Yes",
+        "Blue Eyes": "No"
+    },
+    {
+        "Name": "Bob Smith",
+        "Over 180cm": "Yes",
+        "Black Hair": "No",
+        "Blue Eyes": "Yes"
+    },
+    {
+        "Name": "Charlie Brown",
+        "Over 180cm": "Yes",
+        "Black Hair": "Yes",
+        "Blue Eyes": "No"
+    },
+    {
+        "Name": "Diana Lee",
+        "Over 180cm": "No",
+        "Black Hair": "Yes",
+        "Blue Eyes": "Yes"
+    },
+    {
+        "Name": "Ethan Davis",
+        "Over 180cm": "Yes",
+        "Black Hair": "Yes",
+        "Blue Eyes": "Yes"
+    },
+    {
+        "Name": "Fiona Williams",
+        "Over 180cm": "No",
+        "Black Hair": "No",
+        "Blue Eyes": "Yes"
+    },
+    {
+        "Name": "George Turner",
+        "Over 180cm": "Yes",
+        "Black Hair": "No",
+        "Blue Eyes": "No"
+    }
+]
